@@ -14,17 +14,20 @@ g_test_case_init_info = {
 }
 
 def wait_test_cases():
-    test_result = global_test_result_queue.get()
-    success_cases_count = test_result["success_cases_count"]
-    failed_cases_count = test_result["failed_cases_count"]
-    test_cases_count = len(test_threads)
-    while success_cases_count + failed_cases_count != test_cases_count:
-        print "Current test process:"
-        print "  All test cases: %s" % test_cases_count
-        print "  Success test cases: %s" % success_cases_count
-        print "  Failed test cases: %s" % failed_cases_count
-        print ""
+    while True:
+        test_result = global_test_result_queue.get()
+        success_cases_count = test_result["success_cases_count"]
+        failed_cases_count = test_result["failed_cases_count"]
+        test_cases_count = len(test_threads)
 
+        if success_cases_count + failed_cases_count != test_cases_count:
+            print "Current test process:"
+            print "  All test cases: %s" % test_cases_count
+            print "  Success test cases: %s" % success_cases_count
+            print "  Failed test cases: %s" % failed_cases_count
+            print ""
+        else:
+            break
 
     print "Test(s) finished: %s" % test_cases_count
     print "  Success test cases: %s" % success_cases_count

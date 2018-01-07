@@ -59,6 +59,7 @@ class JsonConfig(Config):
     def read_from_config_file(self):
         config_file = self.config_file()
         if os.path.isdir(config_file):
+            print "dir was hit"
             self.set_is_config_good(False)
             return False
         elif not os.path.isfile(config_file):
