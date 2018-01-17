@@ -73,3 +73,9 @@ class JsonConfig(Config):
 
         self.set_is_config_good(True)
         return True
+
+    def config_dict(self):
+        return self.__json_config
+
+    def get_config_value(self, key):
+        return self.__json_config[key]
